@@ -1,0 +1,38 @@
+//思路：
+//input int x;
+//1. 取得相反的數字，並與x比較。
+//method A 只看後半部的相反數字，並與前半部的數字做比較。
+//method B 取得完整的相反數字，並與原本數字比較。
+//時間複雜度為log10(x)，即有幾個digit。
+
+//method A
+bool isPalindrome(int x){
+
+    if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+    int reversedNumber = 0;
+    while(x > reversedNumber)
+    {
+        reversedNumber = reversedNumber * 10 + x % 10;
+        x /= 10;
+    }
+    if (x < reversedNumber)
+    {
+        reversedNumber /= 10;
+    }
+    return x == reversedNumber;
+}
+//-----------------------------------------------------------------
+//method B
+// traverse all element
+// bool isPalindrome(int x){
+
+//     if (x < 0) return false;
+//     int temp = x;
+//     long int reversedNumber = 0;  // 須為long int 否則有可能overflow，因為input可能接近int邊界
+//     while(x)
+//     {
+//         reversedNumber = reversedNumber * 10 + x % 10;
+//         x /= 10;
+//     }
+//     return temp == reversedNumber;
+// }
