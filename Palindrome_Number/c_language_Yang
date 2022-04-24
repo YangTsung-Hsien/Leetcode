@@ -1,0 +1,35 @@
+bool isPalindrome(int x){
+    
+    int temp = x;
+    int result = 0;
+    if(temp == 0)
+        return true;
+    
+    else if(temp < 0)
+        return false;
+    
+    else
+    {
+       
+        while(temp != 0)
+        {
+            if (result > 214748364)
+                return false;
+            
+            result*=10;
+            
+            if(result > INT_MAX-(temp%10))
+                return false;
+            
+            result += temp%10;           
+            temp /= 10;
+            
+        }
+        if (result == x)
+            return true;
+        
+        else
+            return false;
+    }
+
+}
