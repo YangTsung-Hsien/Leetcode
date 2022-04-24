@@ -4,16 +4,16 @@ bool isPalindrome(int x){
     int result = 0;
     if(temp == 0)
         return true;
-    
+    // 檢查是否小於零,如果小於零直接回傳fasle
     else if(temp < 0)
         return false;
     
     else
     {
        
-        while(temp != 0)
+        while(temp != 0) //如果temp已經等於零則計算結束
         {
-            if (result > 214748364)
+            if (result > 214748364)  //result 大於 214748364那麼乘以10後就會超過 INT_MAX
                 return false;
             
             result*=10;
