@@ -1,0 +1,68 @@
+//思路：
+//input int x;
+//1. 轉成string，並比較相反string與原本的string。
+//只看後半部的相反數字，並與前半部的數字做比較。
+//時間複雜度需要看int轉string的函式本身的時間複雜度，若不看，則為log10(x)，即有幾個digit。
+//use string traverse half elements
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        std::string str = std::to_string(x);
+        
+        char left = 0;
+        char right = str.length() - 1;
+        
+        while(left < right) {
+            if (str[left] != str[right]) return false;
+            left++;
+            right--;
+        }
+        return true;
+        
+    }
+};
+
+use string traverse all element
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        
+        if(x < 0) return false;
+        string str1 = "";
+        string str = to_string(x);
+        int n = str.size();
+        for(int i = n - 1; i >= 0; i--) { //reverse string
+            str1 += str[i];
+        }
+        return str == str1;// compare input string with reverse string
+        
+        
+    }
+};
+
+
+//思路：
+//input int x;
+//1. 取得相反的數字，並與x比較。
+//只看後半部的相反數字，並與前半部的數字做比較。
+//時間複雜度為log10(x)，即有幾個digit。
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        
+        if(x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+       int reversedNumber = 0;
+        while(x > reversedNumber) {
+            reversedNumber = reversedNumber * 10 + x % 10;//get reversed number and compare with input number
+            x /= 10;
+        }
+
+
+        return x == reversedNumber || x == reversedNumber/10;
+        
+    }
+};
