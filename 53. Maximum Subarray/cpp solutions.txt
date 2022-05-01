@@ -1,3 +1,7 @@
+https://leetcode.com/problems/maximum-subarray/discuss/1595195/C%2B%2BPython-7-Simple-Solutions-w-Explanation-or-Brute-Force-%2B-DP-%2B-Kadane-%2B-Divide-and-Conquer?fbclid=IwAR0kmFi4bubmxo4hOBNo93ELule1Kt2gtoaQ-wgnc9qr6AOBqeK25i9Nz7k
+7種解法
+
+
 // O(n^2)
 class Solution {
 public:
