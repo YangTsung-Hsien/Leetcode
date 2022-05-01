@@ -1,0 +1,109 @@
+// O(n^2)
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int maxSum = INT_MIN;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int sumTemp = 0;
+            for (int j = 0; j < nums.size() - i; j++)
+            {
+                sumTemp += nums[i+j];
+                if (sumTemp > maxSum)
+                {
+                    maxSum = sumTemp;
+                }
+            }
+        }
+        return maxSum;
+    }
+};
+
+//O(n)
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int maxSum = INT_MIN;
+        int currentSum = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            currentSum += nums[i];
+            
+            if (currentSum > maxSum) 
+                maxSum = currentSum;
+            
+            if (currentSum < 0) 
+                currentSum = 0;
+        }
+        return maxSum;
+    }
+};
+
+// O(nlogn) divid and conquer
+class Solution {
+public:
+    int findBestSubArray(vector<int> &nums, int left, int right) {
+        cout<<"left, right: "<<left<<" , "<<right<<"\n";
+        if (left > right) return INT_MIN;
+        
+        int mid = (left + right) / 2;
+        int leftBestSum = 0;
+        int rightBestSum = 0;
+        int currentSum = 0;
+        for(int i = mid - 1; i >= left; i--) {
+            currentSum += nums[i];
+            if (leftBestSum < currentSum)
+                leftBestSum = currentSum;
+        }
+        
+        currentSum = 0;
+        for(int i = mid + 1; i <= right;i++) {
+            currentSum += nums[i];
+            if (rightBestSum < currentSum)
+                rightBestSum = currentSum;
+        }
+        
+        int BestMidSum = nums[mid] + leftBestSum + rightBestSum;
+        
+        int leftHalfSum = findBestSubArray(nums, left, mid - 1);
+        int leftRightSum = findBestSubArray(nums, mid + 1, right);
+        
+        return std::max(BestMidSum, std::max(leftHalfSum, leftRightSum));
+    }
+    int maxSubArray(vector<int>& nums) {
+        return findBestSubArray(nums, 0, nums.size() - 1);
+    }
+};
+
+
+// O(n) but slow for create vector
+// a為當下L, R 之間從頭開始最大的sum
+// m為當下L, R 之間最大的sum
+// b為當下L, R 之間從尾開始最大的sum
+// s為當下L, R sum
+class Solution {
+public:
+    vector<int> pre, suf;
+    int maxSubArray(vector<int>& nums) {
+        vector<int> result = findBestSubArray(nums, 0, nums.size());
+        return result[1];
+
+    }
+    vector<int> findBestSubArray(vector<int>& A, int L, int R){
+        if (L == R - 1) return vector<int>{A[L], A[L], A[L], A[L]};
+        
+        // int mid = (L + R) / 2;
+        int mid = L + (R - L) / 2;
+        
+        vector<int> leftVector = findBestSubArray(A, L, mid);
+        vector<int> rightVector = findBestSubArray(A, mid, R);
+
+        int a = std::max(leftVector[0], leftVector[3] + rightVector[0]);
+        int b = std::max(rightVector[2], rightVector[3] + leftVector[2]);
+        int m = std::max(std::max(leftVector[1], rightVector[1]), leftVector[2] + rightVector[0]);
+        int s = leftVector[3] + rightVector[3];
+        
+        return vector<int>{a, m, b, s};
+        
+    }	
+};
